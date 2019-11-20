@@ -1,13 +1,12 @@
 #root = true
-
 [*]
-indent_style = space
 end_of_line = lf
 charset = utf-8
-trim_trailing_whitespace = true
+trim_trailing_whitespace = false
 insert_final_newline = true
-max_line_length = 100
+indent_style = space
 indent_size = 2
 
-[*.md]
-trim_trailing_whitespace = false
+[{*.yml,*.json}]
+indent_style = space
+indent_size = 2
