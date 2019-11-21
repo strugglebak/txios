@@ -1,4 +1,4 @@
-import { isDate, isObject } from './util-helper'
+import { isDate, isNormalObject } from './util-helper'
 
 /**
  *
@@ -61,7 +61,7 @@ export function recreateUrl(url: string, params?: any) {
     }
 
     values.forEach(val => {
-      if (isObject(val)) {
+      if (isNormalObject(val)) {
         // 参数值为对象
         // 转换成字符串
         val = JSON.stringify(val)

@@ -1,6 +1,7 @@
 import { TxiosRequestConfig } from './types'
 import xhr from './xhr'
 import { recreateUrl } from './helpers/url-helper'
+import { transformRequest } from './helpers/data-helper'
 
 /**
  *
@@ -8,7 +9,7 @@ import { recreateUrl } from './helpers/url-helper'
  * @param {TxiosRequestConfig} config
  * @description 封装的 axios 方法, 用 TypeScript 实现, 此为库函数入口
  */
-function txios(config: TxiosRequestConfig): void {
+export function txios(config: TxiosRequestConfig): void {
   handleConfig(config)
   xhr(config)
 }
@@ -21,6 +22,7 @@ function txios(config: TxiosRequestConfig): void {
  */
 function handleConfig(config: TxiosRequestConfig): void {
   config.url = transformUrl(config)
+  config.data = transformRequestData(config)
 }
 
 /**
@@ -33,6 +35,18 @@ function handleConfig(config: TxiosRequestConfig): void {
 function transformUrl(config: TxiosRequestConfig): string {
   const { url, params } = config
   return recreateUrl(url, params)
+}
+
+/**
+ *
+ *
+ * @param {TxiosRequestConfig} config
+ * @returns {*}
+ * @description 将 config 里的 data 进行转换，主要是将普通对象转换成 JSON 字符串
+ * 这里主要用于 post 请求的数据处理
+ */
+function transformRequestData(config: TxiosRequestConfig): any {
+  return transformRequest(config.data)
 }
 
 export default txios
