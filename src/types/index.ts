@@ -11,6 +11,7 @@
 export interface TxiosRequestConfig {
   url: string
   method?: Method
+  headers?: any
   params?: any
   data?: any
 }

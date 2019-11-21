@@ -2,6 +2,7 @@ import { TxiosRequestConfig } from './types'
 import xhr from './xhr'
 import { recreateUrl } from './helpers/url-helper'
 import { transformRequest } from './helpers/data-helper'
+import { handleHeaders } from './helpers/headers-helper'
 
 /**
  *
@@ -22,6 +23,7 @@ export function txios(config: TxiosRequestConfig): void {
  */
 function handleConfig(config: TxiosRequestConfig): void {
   config.url = transformUrl(config)
+  config.headers = transformHeaders(config)
   config.data = transformRequestData(config)
 }
 
@@ -47,6 +49,17 @@ function transformUrl(config: TxiosRequestConfig): string {
  */
 function transformRequestData(config: TxiosRequestConfig): any {
   return transformRequest(config.data)
+}
+
+/**
+ *
+ *
+ * @param {TxiosRequestConfig} config
+ * @description 对 HTTP 请求头进行处理
+ */
+function transformHeaders(config: TxiosRequestConfig): void {
+  const { headers = {}, data } = config
+  return handleHeaders(headers, data)
 }
 
 export default txios
