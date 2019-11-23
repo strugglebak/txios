@@ -78,7 +78,6 @@ export function recreateUrl(url: string, params?: any) {
 
   // 处理 list 数组里面的参数
   const finalParams = list.join('&')
-  console.log('finalParams', finalParams)
   if (finalParams) {
     // 去掉 url 中的哈希标记
     const endIndex = url.indexOf('#')

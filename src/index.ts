@@ -1,4 +1,4 @@
-import { TxiosRequestConfig } from './types'
+import { TxiosRequestConfig, TxiosPromise } from './types'
 import xhr from './xhr'
 import { recreateUrl } from './helpers/url-helper'
 import { transformRequest } from './helpers/data-helper'
@@ -8,11 +8,12 @@ import { handleHeaders } from './helpers/headers-helper'
  *
  *
  * @param {TxiosRequestConfig} config
+ * @returns {TxiosPromise}
  * @description 封装的 axios 方法, 用 TypeScript 实现, 此为库函数入口
  */
-export function txios(config: TxiosRequestConfig): void {
+export function txios(config: TxiosRequestConfig): TxiosPromise {
   handleConfig(config)
-  xhr(config)
+  return xhr(config)
 }
 
 /**
