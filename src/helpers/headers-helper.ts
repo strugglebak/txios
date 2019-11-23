@@ -44,3 +44,36 @@ function standardizeHeaderName(headers: any, headerPropertyName: string): void {
     }
   })
 }
+
+/**
+ *
+ *
+ * @export
+ * @param {string} headers
+ * @returns {*}
+ * @description
+ * 将 header 属性中的字符串
+ * 'date: Fri, 05 Apr 2019 12:40:49 GMT
+ *  etag: W/"d-Ssxx4FRxEutDLwo2+xkkxKc4y0k"
+ * 转变成
+ * {
+ *  date: Fri, 05 Apr 2019 12:40:49 GMT
+ *  etag: W/"d-Ssxx4FRxEutDLwo2+xkkxKc4y0k"
+ * }
+ * 对象
+ */
+export function parseHeaders(headers: string): any {
+  const parser = Object.create(null)
+  if (!headers) return parser
+
+  headers.split('\r\n').forEach(line => {
+    let [key, value] = line.split(':')
+    // key 需要去掉空格以及转变成小写
+    key = key.trim().toLowerCase()
+    if (!key) return
+    if (value) value = value.trim()
+    parser[key] = value
+  })
+
+  return parser
+}

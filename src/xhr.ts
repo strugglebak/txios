@@ -1,4 +1,5 @@
 import { TxiosRequestConfig, TxiosPromise, TxiosResponse } from './types'
+import { parseHeaders } from './helpers/headers-helper'
 
 /**
  *
@@ -28,7 +29,7 @@ export default function xhr(config: TxiosRequestConfig): TxiosPromise {
           : request.responseText
       const responseStatus = request.status
       const responseStatusText = request.statusText
-      const responseHeaders = request.getAllResponseHeaders()
+      const responseHeaders = parseHeaders(request.getAllResponseHeaders())
       const response: TxiosResponse = {
         data: responseData,
         status: responseStatus,
