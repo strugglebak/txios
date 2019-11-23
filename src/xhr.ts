@@ -27,6 +27,7 @@ export default function xhr(config: TxiosRequestConfig): TxiosPromise {
         responseType && responseType !== 'text'
           ? request.response
           : request.responseText
+      console.log('请求: ', request)
       const responseStatus = request.status
       const responseStatusText = request.statusText
       const responseHeaders = parseHeaders(request.getAllResponseHeaders())

@@ -1,7 +1,7 @@
-import { TxiosRequestConfig, TxiosPromise } from './types'
+import { TxiosRequestConfig, TxiosPromise, TxiosResponse } from './types'
 import xhr from './xhr'
 import { recreateUrl } from './helpers/url-helper'
-import { transformRequest } from './helpers/data-helper'
+import { transformRequest, transformResponse } from './helpers/data-helper'
 import { handleHeaders } from './helpers/headers-helper'
 
 /**
@@ -50,6 +50,18 @@ function transformUrl(config: TxiosRequestConfig): string {
  */
 function transformRequestData(config: TxiosRequestConfig): any {
   return transformRequest(config.data)
+}
+
+/**
+ *
+ *
+ * @param {TxiosResponse} res
+ * @returns {TxiosResponse}
+ * @description 对 response 中的 data 属性做处理
+ */
+function transformResponseData(res: TxiosResponse): TxiosResponse {
+  res.data = transformResponse(res.data)
+  return res
 }
 
 /**
