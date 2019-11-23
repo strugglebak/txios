@@ -19,6 +19,7 @@ router.get('/base/get', (req, res) => {
   res.json(req.query);
 });
 router.post('/base/post', (req, res) => {
+  console.log('req.body = ', req.body)
   res.json(req.body);
 });
 router.post('/base/buffer', (req, res) => {
@@ -34,7 +35,6 @@ router.post('/base/buffer', (req, res) => {
   });
 });
 
-app.use(router);
 
 app.use(webpackDevMiddleware(complier, {
   publicPath: '/__build__/',
@@ -47,8 +47,10 @@ app.use(webpackDevMiddleware(complier, {
 app.use(webpackHotMiddleware(complier));
 app.use(express.static(__dirname)); // 引入静态资源文件供浏览器访问
 
-app.use(bodyParser.json);
+app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({ extended: true }));
+
+app.use(router);
 
 const port = process.env.PORT || 8888;
 module.exports = app.listen(port, () => {
