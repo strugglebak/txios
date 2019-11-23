@@ -13,7 +13,9 @@ import { handleHeaders } from './helpers/headers-helper'
  */
 export function txios(config: TxiosRequestConfig): TxiosPromise {
   handleConfig(config)
-  return xhr(config)
+  return xhr(config).then(res => {
+    return transformResponseData(res)
+  })
 }
 
 /**
