@@ -69,6 +69,17 @@ router.put('/extend/put', (req, res) => {
 router.patch('/extend/patch', (req, res) => {
   res.json(req.body);
 });
+router.get('/extend/user', (req, res) => {
+  res.json({
+    code: 0,
+    message: 'ok',
+    result: {
+      name: 'struggle',
+      age: 18
+    }
+  });
+});
+
 
 
 app.use(webpackDevMiddleware(complier, {

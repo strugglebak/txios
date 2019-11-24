@@ -3,19 +3,32 @@
  *
  * @export
  * @interface Txios
+ * @template T
  * @description Txios 的扩展接口，Txios 本身也是个混合对象
  * 因为其本身是一个方法，又有很多方法属性
  */
 export interface Txios {
-  get(url: string, config?: TxiosRequestConfig): TxiosPromise
-  delete(url: string, config?: TxiosRequestConfig): TxiosPromise
-  head(url: string, config?: TxiosRequestConfig): TxiosPromise
-  options(url: string, config?: TxiosRequestConfig): TxiosPromise
-  post(url: string, data?: any, config?: TxiosRequestConfig): TxiosPromise
-  put(url: string, data?: any, config?: TxiosRequestConfig): TxiosPromise
-  patch(url: string, data?: any, config?: TxiosRequestConfig): TxiosPromise
+  get<T = any>(url: string, config?: TxiosRequestConfig): TxiosPromise<T>
+  delete<T = any>(url: string, config?: TxiosRequestConfig): TxiosPromise<T>
+  head<T = any>(url: string, config?: TxiosRequestConfig): TxiosPromise<T>
+  options<T = any>(url: string, config?: TxiosRequestConfig): TxiosPromise<T>
+  post<T = any>(
+    url: string,
+    data?: any,
+    config?: TxiosRequestConfig
+  ): TxiosPromise<T>
+  put<T = any>(
+    url: string,
+    data?: any,
+    config?: TxiosRequestConfig
+  ): TxiosPromise<T>
+  patch<T = any>(
+    url: string,
+    data?: any,
+    config?: TxiosRequestConfig
+  ): TxiosPromise<T>
 
-  request(config: TxiosRequestConfig): TxiosPromise
+  request<T = any>(config: TxiosRequestConfig): TxiosPromise<T>
 }
 
 /**
@@ -23,13 +36,14 @@ export interface Txios {
  *
  * @export
  * @interface TxiosInstance
+ * @template T
  * @extends {Txios}
  * @description 混合类型接口
  * 这样写的好处是调用时可以直接使用 TxiosInstance(config) 的方式传参
  */
 export interface TxiosInstance extends Txios {
-  (config: TxiosRequestConfig): TxiosPromise
-  (url: string, config?: TxiosRequestConfig): TxiosPromise
+  <T = any>(config: TxiosRequestConfig): TxiosPromise<T>
+  <T = any>(url: string, config?: TxiosRequestConfig): TxiosPromise<T>
 }
 
 /**
@@ -59,15 +73,16 @@ export interface TxiosRequestConfig {
  *
  * @export
  * @interface TxiosResponse response 对象
- * @param {any} data 服务端返回的数据
+ * @template T
+ * @param {T} data 服务端返回的数据
  * @param {number} status HTTP 状态码
  * @param {string} statusText 状态消息
  * @param {any} headers 响应头
  * @param {TxiosRequestConfig} config 请求配置对象
  * @param {request} request 请求对象 XMLHttpRequest 对象实例 request
  */
-export interface TxiosResponse {
-  data: any
+export interface TxiosResponse<T = any> {
+  data: T
   status: number
   statusText: string
   headers: any
@@ -80,13 +95,14 @@ export interface TxiosResponse {
  *
  * @export
  * @interface TxiosPromise
+ * @template T
  * @extends {Promise<TxiosResponse>}
  * @description txios 函数返回的是一个 Promise 对象
  * 所以定义这个接口，它继承于泛型接口 Promise<TxiosResponse>
  * 当 txios 返回 TxiosPromise 类型时，resolve 函数中的参数
  * 就是一个 TxiosResponse 类型
  */
-export interface TxiosPromise extends Promise<TxiosResponse> {}
+export interface TxiosPromise<T = any> extends Promise<TxiosResponse<T>> {}
 
 /**
  *
