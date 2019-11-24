@@ -7,7 +7,8 @@
  * @param {Method} method  请求 HTTP 方法, 可选属性
  * @param {any} params  需要拼接到 url 的 query string 中的数据, 可选属性
  * @param {any} data  请求数据, 可选属性
- * @param {XMLHttpRequestResponseType} responseType 响应数据类型，可以是 ""|arrayBuffer|blob|document|json|text
+ * @param {XMLHttpRequestResponseType} responseType  响应数据类型，可以是 ""|arrayBuffer|blob|document|json|text
+ * @param {number} timeout  超时时间
  */
 export interface TxiosRequestConfig {
   url: string
@@ -16,6 +17,7 @@ export interface TxiosRequestConfig {
   params?: any
   data?: any
   responseType?: XMLHttpRequestResponseType
+  timeout?: number
 }
 
 /**
@@ -51,6 +53,28 @@ export interface TxiosResponse {
  * 就是一个 TxiosResponse 类型
  */
 export interface TxiosPromise extends Promise<TxiosResponse> {}
+
+/**
+ *
+ *
+ * @export
+ * @interface TxiosError
+ * @param {TxiosRequestConfig} config 请求对象配置
+ * @param {string} code 错误代码
+ * @param {any} request XMLHttpRequest 对象实例
+ * @param {TxiosResponse} response 自定义响应对象
+ * @param {boolean} isTxiosError 是否是 Txios Error
+ * @extends {Error}
+ * @description 这个是为了丰富对外提供的错误信息而设计出来的接口
+ * 主要用于外部使用
+ */
+export interface TxiosError extends Error {
+  config: TxiosRequestConfig
+  code?: string
+  request?: any
+  response?: TxiosResponse
+  isTxiosError: boolean
+}
 
 /**
  *

@@ -1,5 +1,6 @@
 import { TxiosRequestConfig, TxiosPromise, TxiosResponse } from './types'
 import { parseHeaders } from './helpers/headers-helper'
+import { createError } from './helpers/error-helper'
 
 /**
  *
@@ -10,18 +11,28 @@ import { parseHeaders } from './helpers/headers-helper'
  * @description 利用 XMLHttpRequest 发送请求
  */
 export default function xhr(config: TxiosRequestConfig): TxiosPromise {
-  return new Promise(resolve => {
-    const { url, method = 'get', headers, data = null, responseType } = config
+  return new Promise((resolve, reject) => {
+    const {
+      url,
+      method = 'get',
+      headers,
+      data = null,
+      responseType,
+      timeout
+    } = config
 
     // 开始封装 xhr
     const request = new XMLHttpRequest()
-    // responseType 不为空的话，需要将改属性添加到 request 中去
+    // responseType 不为空的话，需要将该属性添加到 request 中去
     if (responseType) request.responseType = responseType
+    // timeout 不为空的话，需要将该属性添加到 request 中去
+    if (timeout) request.timeout = timeout
     request.open(method.toUpperCase(), url, true)
 
     // 设置获取响应数据回调
     request.onreadystatechange = () => {
       if (request.readyState !== 4) return
+      if (request.status === 0) return
 
       const responseData =
         responseType && responseType !== 'text'
@@ -39,7 +50,35 @@ export default function xhr(config: TxiosRequestConfig): TxiosPromise {
         request
       }
       // 构造 TxiosResponse 类型对象，并将其 resolve 出去
-      resolve(response)
+      handleResponse(response)
+    }
+    function handleResponse(response: TxiosResponse) {
+      response.status >= 200 && response.status < 300
+        ? resolve(response)
+        : reject(
+            createError(
+              `Request failed with status code ${response.status}`,
+              config,
+              null,
+              request,
+              response
+            )
+          )
+    }
+
+    // 设置异常错误处理
+    request.onerror = () => {
+      reject(createError('Network Error', config, 'ECONNABORTED', request))
+    }
+    request.ontimeout = () => {
+      reject(
+        createError(
+          `Timeout of ${timeout}ms exceeded`,
+          config,
+          'ECONNABORTED',
+          request
+        )
+      )
     }
 
     // 设置 headers
