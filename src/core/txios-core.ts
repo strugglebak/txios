@@ -34,7 +34,14 @@ export default class TxiosCore {
     return this._requestMethodWithData('patch', url, data, config)
   }
 
-  request(config: TxiosRequestConfig): TxiosPromise {
+  request(url: any, config?: any): TxiosPromise {
+    // 对传入两个参数的接口做了兼容处理
+    if (typeof url === 'string') {
+      if (!config) config = {}
+      config.url = url
+    } else {
+      config = url
+    }
     return dispatchRequest(config)
   }
 

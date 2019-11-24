@@ -25,9 +25,11 @@ export interface Txios {
  * @interface TxiosInstance
  * @extends {Txios}
  * @description 混合类型接口
+ * 这样写的好处是调用时可以直接使用 TxiosInstance(config) 的方式传参
  */
 export interface TxiosInstance extends Txios {
   (config: TxiosRequestConfig): TxiosPromise
+  (url: string, config?: TxiosRequestConfig): TxiosPromise
 }
 
 /**
