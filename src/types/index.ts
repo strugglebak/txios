@@ -2,8 +2,40 @@
  *
  *
  * @export
+ * @interface Txios
+ * @description Txios 的扩展接口，Txios 本身也是个混合对象
+ * 因为其本身是一个方法，又有很多方法属性
+ */
+export interface Txios {
+  get(url: string, config?: TxiosRequestConfig): TxiosPromise
+  delete(url: string, config?: TxiosRequestConfig): TxiosPromise
+  head(url: string, config?: TxiosRequestConfig): TxiosPromise
+  options(url: string, config?: TxiosRequestConfig): TxiosPromise
+  post(url: string, data?: any, config?: TxiosRequestConfig): TxiosPromise
+  put(url: string, data?: any, config?: TxiosRequestConfig): TxiosPromise
+  patch(url: string, data?: any, config?: TxiosRequestConfig): TxiosPromise
+
+  request(config: TxiosRequestConfig): TxiosPromise
+}
+
+/**
+ *
+ *
+ * @export
+ * @interface TxiosInstance
+ * @extends {Txios}
+ * @description 混合类型接口
+ */
+export interface TxiosInstance extends Txios {
+  (config: TxiosRequestConfig): TxiosPromise
+}
+
+/**
+ *
+ *
+ * @export
  * @interface TxiosRequestConfig
- * @param {string} url  请求地址，必选属性
+ * @param {string} url  请求地址，可选属性
  * @param {Method} method  请求 HTTP 方法, 可选属性
  * @param {any} params  需要拼接到 url 的 query string 中的数据, 可选属性
  * @param {any} data  请求数据, 可选属性
@@ -11,7 +43,7 @@
  * @param {number} timeout  超时时间
  */
 export interface TxiosRequestConfig {
-  url: string
+  url?: string
   method?: Method
   headers?: any
   params?: any

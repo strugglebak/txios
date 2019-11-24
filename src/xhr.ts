@@ -27,7 +27,7 @@ export default function xhr(config: TxiosRequestConfig): TxiosPromise {
     if (responseType) request.responseType = responseType
     // timeout 不为空的话，需要将该属性添加到 request 中去
     if (timeout) request.timeout = timeout
-    request.open(method.toUpperCase(), url, true)
+    request.open(method.toUpperCase(), url!, true)
 
     // 设置获取响应数据回调
     request.onreadystatechange = () => {

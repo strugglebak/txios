@@ -30,7 +30,7 @@ export function transformRequest(data: any): any {
 export function transformResponse(data: any): any {
   if (typeof data === 'string') {
     try {
-      data = JSON.parse(data)
+      data = data && JSON.parse(data)
     } catch (error) {
       // TODO
       console.log(error)

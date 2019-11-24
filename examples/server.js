@@ -19,7 +19,6 @@ router.get('/base/get', (req, res) => {
   res.json(req.query);
 });
 router.post('/base/post', (req, res) => {
-  console.log('req.body = ', req.body)
   res.json(req.body);
 });
 router.post('/base/buffer', (req, res) => {
@@ -47,6 +46,28 @@ router.get('/error/timeout', (req, res) => {
   setTimeout(() => {
     res.json({ msg: 'hello world' });
   }, 3000);
+});
+
+router.get('/extend/get', (req, res) => {
+  res.json(req.query);
+});
+router.delete('/extend/delete', (req, res) => {
+  res.json(req.query);
+});
+router.head('/extend/head', (req, res) => {
+  res.json(req.query);
+});
+router.options('/extend/options', (req, res) => {
+  res.json(req.query);
+});
+router.post('/extend/post', (req, res) => {
+  res.json(req.body);
+});
+router.put('/extend/put', (req, res) => {
+  res.json(req.body);
+});
+router.patch('/extend/patch', (req, res) => {
+  res.json(req.body);
 });
 
 
