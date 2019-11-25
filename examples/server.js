@@ -80,6 +80,9 @@ router.get('/extend/user', (req, res) => {
   });
 });
 
+router.get('/interceptor/get', (req, res)=> {
+  res.json(req.query);
+});
 
 
 app.use(webpackDevMiddleware(complier, {

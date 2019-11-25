@@ -130,6 +130,40 @@ export interface TxiosError extends Error {
  *
  *
  * @export
+ * @interface TxiosInterceptorManager
+ * @template T
+ * @description
+ *
+ * 这个拦截器管理对象对外接口
+ *
+ *                           -- request -- use(resolve, reject)
+ *                          /
+ * axios -- interceptors --
+ *                          \
+ *                           -- response -- use(resolve, reject)
+ *
+ * 对于 resolve 参数
+ * request 里面就是 TxiosRequestConfig
+ * response 里面就是 TxiosResponse
+ * 所以这里用泛型来实现
+ *
+ * eject 表示删除拦截器
+ */
+export interface TxiosInterceptorManager<T> {
+  use(resolved: ResolvedFn<T>, rejected?: RejectedFn): number
+  eject(id: number): void
+}
+export interface ResolvedFn<T = any> {
+  (value: T): T | Promise<T>
+}
+export interface RejectedFn {
+  (error: any): any
+}
+
+/**
+ *
+ *
+ * @export
  * @type Method
  * @description 封装的 HTTP 请求方法
  */
