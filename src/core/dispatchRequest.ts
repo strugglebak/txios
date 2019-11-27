@@ -2,7 +2,7 @@ import { TxiosRequestConfig, TxiosPromise, TxiosResponse } from '../types'
 import xhr from '../xhr'
 import { recreateUrl } from '../helpers/url-helper'
 import { transformRequest, transformResponse } from '../helpers/data-helper'
-import { handleHeaders } from '../helpers/headers-helper'
+import { handleHeaders, flattenHeaders } from '../helpers/headers-helper'
 
 /**
  *
@@ -28,6 +28,7 @@ function handleConfig(config: TxiosRequestConfig): void {
   config.url = transformUrl(config)
   config.headers = transformHeaders(config)
   config.data = transformRequestData(config)
+  config.headers = flattenHeaders(config.headers, config.method!)
 }
 
 /**

@@ -84,6 +84,10 @@ router.get('/interceptor/get', (req, res)=> {
   res.json(req.query);
 });
 
+router.post('/config/post', (req, res)=> {
+  res.json(req.body);
+});
+
 
 app.use(webpackDevMiddleware(complier, {
   publicPath: '/__build__/',

@@ -1,4 +1,5 @@
-import { isNormalObject } from './util-helper'
+import { isNormalObject, deepMerge } from './util-helper'
+import { Method } from '../types/index'
 
 /**
  *
@@ -76,4 +77,56 @@ export function parseHeaders(headers: string): any {
   })
 
   return parser
+}
+
+/**
+ *
+ *
+ * @export
+ * @param {*} headers
+ * @param {Method} method
+ * @returns {*}
+ * @description
+ * 主要将
+ * headers: {
+ *   common: {
+ *     Accept: 'application/json, text/plain'
+ *   },
+ *   post: {
+ *     'Content-Type':'application/x-www-form-urlencoded'
+ *   }
+ * }
+ * flatten 成一层
+ * headers: {
+ *   Accept: 'application/json, text/plain'
+ *   'Content-Type':'application/x-www-form-urlencoded'
+ * }
+ * common 中定义的 header 字段都要做提取值
+ * 对于 post 之类的需要对请求的方法做判断提取值
+ */
+export function flattenHeaders(headers: any, method: Method): any {
+  if (!headers) return
+
+  console.log('headers = ', headers)
+
+  // 将全部的属性(common, post 等)从 headers.common/headers.post 中取出
+  // 然后拷贝到 headers 中
+  headers = deepMerge(headers.common || {}, headers[method] || {}, headers)
+
+  const propsToDelete = [
+    'delete',
+    'get',
+    'head',
+    'options',
+    'post',
+    'put',
+    'patch',
+    'common'
+  ]
+  // 再将这些属性删除(common, post 等)
+  propsToDelete.forEach(prop => {
+    delete headers[prop]
+  })
+
+  return headers
 }

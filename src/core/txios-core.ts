@@ -9,6 +9,7 @@ import {
 
 import dispatchRequest from './dispatchRequest'
 import InterceptorManager from './interceptor'
+import mergeConfig from './mergeConfig'
 
 interface Interceptors {
   request: InterceptorManager<TxiosRequestConfig>
@@ -31,12 +32,14 @@ interface PromiseChain {
  */
 export default class TxiosCore {
   interceptors: Interceptors
+  defaults: TxiosRequestConfig // 默认配置
 
-  constructor() {
+  constructor(initConfig: TxiosRequestConfig) {
     this.interceptors = {
       request: new InterceptorManager<TxiosRequestConfig>(),
       response: new InterceptorManager<TxiosResponse>()
     }
+    this.defaults = initConfig
   }
 
   get(url: string, config?: TxiosRequestConfig): TxiosPromise {
@@ -70,6 +73,12 @@ export default class TxiosCore {
     } else {
       config = url
     }
+
+    console.log('默认配置', this.defaults)
+    console.log('合并配置', config)
+
+    // 合并配置
+    config = mergeConfig(this.defaults, config)
 
     /**
      * 构建如下的 Promise 链

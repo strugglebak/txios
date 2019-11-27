@@ -66,6 +66,7 @@ export interface TxiosRequestConfig {
   data?: any
   responseType?: XMLHttpRequestResponseType
   timeout?: number
+  [propName: string]: any // 字符串索引签名, 因为遍历过程会使用 xxx[key] 这种方式访问
 }
 
 /**

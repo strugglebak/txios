@@ -1,6 +1,7 @@
-import { TxiosInstance } from './types'
+import { TxiosInstance, TxiosRequestConfig } from './types'
 import TxiosCore from './core/txios-core'
 import { extend } from './helpers/util-helper'
+import defaults from './core/defaults'
 
 /**
  *
@@ -10,8 +11,8 @@ import { extend } from './helpers/util-helper'
  * instance 本身是个函数，同时又拥有 TxiosCore 类的所有原型和实例属性
  * 直接调用 axios 方法相当于执行了 TxiosCore 类的 request 方法发送请求
  */
-function createInstance(): TxiosInstance {
-  const context = new TxiosCore()
+function createInstance(config: TxiosRequestConfig): TxiosInstance {
+  const context = new TxiosCore(config)
   const instance = TxiosCore.prototype.request.bind(context)
 
   extend(instance, context)
@@ -19,6 +20,6 @@ function createInstance(): TxiosInstance {
   return instance as TxiosInstance
 }
 
-const txios = createInstance()
+const txios = createInstance(defaults)
 
 export default txios
