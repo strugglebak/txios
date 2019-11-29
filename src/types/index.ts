@@ -50,6 +50,20 @@ export interface TxiosInstance extends Txios {
  *
  *
  * @export
+ * @interface TxiosStatic
+ * @extends {TxiosInstance}
+ * @description 这是个静态方法拓展
+ * 主要是因为 Txios 这个单例修改默认配置会影响所有的请求
+ * 所以这里提供一个 create 的接口来 产生一个新的 txios 实例将这些配置隔离开
+ */
+export interface TxiosStatic extends TxiosInstance {
+  create(config?: TxiosRequestConfig): TxiosInstance
+}
+
+/**
+ *
+ *
+ * @export
  * @interface TxiosRequestConfig
  * @param {string} url  请求地址，可选属性
  * @param {Method} method  请求 HTTP 方法, 可选属性

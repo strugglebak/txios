@@ -15,25 +15,29 @@ import qs from 'qs'
 //   console.log(res.data)
 // });
 
-txios({
+const instance =  txios.create({
   transformRequest: [
     (function(data) {
       return qs.stringify(data)
     }),
-  ...(txios.defaults.transformRequest as AxiosTransformer[])],
+    ...(txios.defaults.transformRequest as AxiosTransformer[])],
   transformResponse: [
     ...(txios.defaults.transformResponse as AxiosTransformer[]),
-    function(data) {
+    (function(data) {
       if (typeof data === 'object') {
         data.b = 2
       }
       return data
-  }],
+    })
+],
+});
+
+instance({
   url: '/config/post',
   method: 'post',
   data: {
     a: 1
   }
-}).then((res) => {
+}).then(res => {
   console.log(res.data)
-})
+});
