@@ -105,9 +105,7 @@ export function parseHeaders(headers: string): any {
  * 对于 post 之类的需要对请求的方法做判断提取值
  */
 export function flattenHeaders(headers: any, method: Method): any {
-  if (!headers) return
-
-  console.log('headers = ', headers)
+  if (!headers) return headers
 
   // 将全部的属性(common, post 等)从 headers.common/headers.post 中取出
   // 然后拷贝到 headers 中

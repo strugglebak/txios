@@ -1,8 +1,8 @@
 import { TxiosRequestConfig, TxiosPromise, TxiosResponse } from '../types'
 import xhr from '../xhr'
 import { recreateUrl } from '../helpers/url-helper'
-import { transformRequest, transformResponse } from '../helpers/data-helper'
 import { handleHeaders, flattenHeaders } from '../helpers/headers-helper'
+import transform from './transform'
 
 /**
  *
@@ -26,7 +26,6 @@ export function dispatchRequest(config: TxiosRequestConfig): TxiosPromise {
  */
 function handleConfig(config: TxiosRequestConfig): void {
   config.url = transformUrl(config)
-  config.headers = transformHeaders(config)
   config.data = transformRequestData(config)
   config.headers = flattenHeaders(config.headers, config.method!)
 }
@@ -52,7 +51,7 @@ function transformUrl(config: TxiosRequestConfig): string {
  * 这里主要用于 post 请求的数据处理
  */
 function transformRequestData(config: TxiosRequestConfig): any {
-  return transformRequest(config.data)
+  return transform(config.data, config.headers, config.transformRequest)
 }
 
 /**
@@ -63,7 +62,7 @@ function transformRequestData(config: TxiosRequestConfig): any {
  * @description 对 response 中的 data 属性做处理
  */
 function transformResponseData(res: TxiosResponse): TxiosResponse {
-  res.data = transformResponse(res.data)
+  res.data = transform(res.data, res.headers, res.config.transformResponse)
   return res
 }
 

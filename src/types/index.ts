@@ -57,6 +57,8 @@ export interface TxiosInstance extends Txios {
  * @param {any} data  请求数据, 可选属性
  * @param {XMLHttpRequestResponseType} responseType  响应数据类型，可以是 ""|arrayBuffer|blob|document|json|text
  * @param {number} timeout  超时时间
+ * @param {TxiosTransformer | TxiosTransformer[]} transformRequest 请求配置属性
+ * @param {TxiosTransformer | TxiosTransformer[]} transformResponse 响应配置属性
  */
 export interface TxiosRequestConfig {
   url?: string
@@ -67,6 +69,19 @@ export interface TxiosRequestConfig {
   responseType?: XMLHttpRequestResponseType
   timeout?: number
   [propName: string]: any // 字符串索引签名, 因为遍历过程会使用 xxx[key] 这种方式访问
+  transformRequest?: TxiosTransformer | TxiosTransformer[]
+  transformResponse?: TxiosTransformer | TxiosTransformer[]
+}
+
+/**
+ *
+ *
+ * @export
+ * @interface TxiosTransformer
+ * @description 请求响应配置接口
+ */
+export interface TxiosTransformer {
+  (data: any, headers?: any): any
 }
 
 /**

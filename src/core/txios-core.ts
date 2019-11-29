@@ -74,9 +74,6 @@ export default class TxiosCore {
       config = url
     }
 
-    console.log('默认配置', this.defaults)
-    console.log('合并配置', config)
-
     // 合并配置
     config = mergeConfig(this.defaults, config)
 

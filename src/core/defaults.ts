@@ -1,4 +1,6 @@
 import { TxiosRequestConfig } from '../types/index'
+import { handleHeaders } from '../helpers/headers-helper'
+import { transformRequest, transformResponse } from '../helpers/data-helper'
 
 // 默认配置定义
 const defaults: TxiosRequestConfig = {
@@ -9,7 +11,18 @@ const defaults: TxiosRequestConfig = {
     common: {
       Accept: 'application/json, text/plain, */*'
     }
-  }
+  },
+  transformRequest: [
+    function(data: any, headers: any): any {
+      handleHeaders(headers, data)
+      return transformRequest(data)
+    }
+  ],
+  transformResponse: [
+    function(data: any): any {
+      return transformResponse(data)
+    }
+  ]
 }
 
 const methodsWithoutData = ['delete', 'get', 'head', 'options']
