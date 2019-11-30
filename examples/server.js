@@ -88,6 +88,17 @@ router.post('/config/post', (req, res)=> {
   res.json(req.body);
 });
 
+router.get('/cancel/get', (req, res)=> {
+  setTimeout(() => {
+    res.json('surprised mother fuck');
+  }, 1000);
+});
+router.post('/cancel/post', (req, res)=> {
+  setTimeout(() => {
+    res.json(req.body);
+  }, 1000);
+});
+
 
 app.use(webpackDevMiddleware(complier, {
   publicPath: '/__build__/',

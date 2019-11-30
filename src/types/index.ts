@@ -58,6 +58,10 @@ export interface TxiosInstance extends Txios {
  */
 export interface TxiosStatic extends TxiosInstance {
   create(config?: TxiosRequestConfig): TxiosInstance
+
+  CancelToken: CancelTokenStatic
+  Cancel: CancelStatic
+  isCancel: (value: any) => boolean
 }
 
 /**
@@ -73,6 +77,7 @@ export interface TxiosStatic extends TxiosInstance {
  * @param {number} timeout  超时时间
  * @param {TxiosTransformer | TxiosTransformer[]} transformRequest 请求配置属性
  * @param {TxiosTransformer | TxiosTransformer[]} transformResponse 响应配置属性
+ * @param {CancelToken} cancelToken 取消类型
  */
 export interface TxiosRequestConfig {
   url?: string
@@ -85,6 +90,91 @@ export interface TxiosRequestConfig {
   [propName: string]: any // 字符串索引签名, 因为遍历过程会使用 xxx[key] 这种方式访问
   transformRequest?: TxiosTransformer | TxiosTransformer[]
   transformResponse?: TxiosTransformer | TxiosTransformer[]
+  cancelToken?: CancelToken
+}
+
+/**
+ *
+ *
+ * @export
+ * @interface CancelToken
+ * @description 在外部执行 cancel 函数时，能够执行 xhr.abort 方法取消请求
+ * 这个时候就用 promise 实现，在 then 函数中实现该需求
+ * 实例类型接口定义
+ */
+export interface CancelToken {
+  promise: Promise<Cancel>
+  reason?: Cancel
+
+  throwRequested(): void // 如果请求已经使用过 cancelToken，那么只需要抛异常，请求就不必发送
+}
+/**
+ *
+ *
+ * @export
+ * @interface Canceler
+ * @description cancel 的函数接口
+ * 取消方法接口定义
+ */
+export interface Canceler {
+  (message?: string): void
+}
+/**
+ *
+ *
+ * @export
+ * @interface CancelExecutor
+ * @description CancelToken 的构造函数的参数支持传的一个 executor 方法
+ * 该方法能拿到一个 canceler ，即取消函数，供外部变量赋值后调用
+ * CancelToken 类构造函数参数接口定义
+ */
+export interface CancelExecutor {
+  (cancel: Canceler): void
+}
+
+/**
+ *
+ *
+ * @export
+ * @interface CancelTokenStatic
+ * @description CancelToken 拓展的静态接口
+ */
+export interface CancelTokenStatic {
+  new (executor: CancelExecutor): CancelToken
+  source(): CancelTokenSource
+}
+
+/**
+ *
+ *
+ * @export
+ * @interface CancelTokenSource
+ * @description
+ */
+export interface CancelTokenSource {
+  token: CancelToken
+  cancel: Canceler
+}
+
+/**
+ *
+ *
+ * @export
+ * @interface Cancel
+ * @description 实例类型接口
+ */
+export interface Cancel {
+  message?: string
+}
+/**
+ *
+ *
+ * @export
+ * @interface CancelStatic
+ * @description 类类型接口
+ */
+export interface CancelStatic {
+  new (message?: string): Cancel
 }
 
 /**

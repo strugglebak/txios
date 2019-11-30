@@ -1,8 +1,10 @@
-import { TxiosInstance, TxiosRequestConfig, TxiosStatic } from './types'
+import { TxiosRequestConfig, TxiosStatic } from './types'
 import TxiosCore from './core/txios-core'
 import { extend } from './helpers/util-helper'
 import defaults from './core/defaults'
 import mergeConfig from './core/mergeConfig'
+import CancelToken from './cancel/cancelToken'
+import Cancel, { isCancel } from './cancel/cancel'
 
 /**
  *
@@ -23,8 +25,13 @@ function createInstance(config: TxiosRequestConfig): TxiosStatic {
 
 const txios = createInstance(defaults)
 
+// 拓展 txios 的静态方法，供用户使用
 txios.create = function create(config) {
   return createInstance(mergeConfig(defaults, config))
 }
+
+txios.CancelToken = CancelToken
+txios.Cancel = Cancel
+txios.isCancel = isCancel
 
 export default txios

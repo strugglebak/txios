@@ -12,6 +12,7 @@ import transform from './transform'
  * @description 封装的 dispatchRequest 方法, 用 TypeScript 实现, 此为库函数入口
  */
 export function dispatchRequest(config: TxiosRequestConfig): TxiosPromise {
+  checkIfCancellationRequested(config) // 检查 cancelToken 是否被使用过
   handleConfig(config)
   return xhr(config).then(res => {
     return transformResponseData(res)
@@ -75,6 +76,10 @@ function transformResponseData(res: TxiosResponse): TxiosResponse {
 function transformHeaders(config: TxiosRequestConfig): void {
   const { headers = {}, data } = config
   return handleHeaders(headers, data)
+}
+
+function checkIfCancellationRequested(config: TxiosRequestConfig): void {
+  if (config.cancelToken) config.cancelToken.throwRequested()
 }
 
 export default dispatchRequest

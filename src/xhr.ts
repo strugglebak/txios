@@ -18,7 +18,8 @@ export default function xhr(config: TxiosRequestConfig): TxiosPromise {
       headers,
       data = null,
       responseType,
-      timeout
+      timeout,
+      cancelToken
     } = config
 
     // 开始封装 xhr
@@ -90,6 +91,18 @@ export default function xhr(config: TxiosRequestConfig): TxiosPromise {
         request.setRequestHeader(name, headers[name])
       }
     })
+
+    // 设置取消请求
+    if (cancelToken) {
+      cancelToken.promise
+        .then(reason => {
+          request.abort()
+          reject(reason)
+        })
+        .catch(() => {
+          // TODO
+        })
+    }
 
     request.send(data)
   })
