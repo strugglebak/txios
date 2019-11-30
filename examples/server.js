@@ -5,6 +5,8 @@ const webpackDevMiddleware = require('webpack-dev-middleware');
 const webpackHotMiddleware = require('webpack-hot-middleware');
 const webpackConfig = require('./webpack.config');
 
+require('./server2');
+
 const app = express();
 const complier = webpack(webpackConfig);
 
@@ -99,6 +101,26 @@ router.post('/cancel/post', (req, res)=> {
   }, 1000);
 });
 
+router.get('/more/get', (req, res) => {
+  res.json(req.cookies);
+});
+router.post('/more/post', (req, res) => {
+  const auth = req.headers.authorization;
+  const [type, credentials] = auth.split(' ');
+  console.log(atob(credentials));
+  const [username, password] = atob(credentials).split(':');
+  if (
+    type === 'Basic'
+    && username === 'Yee'
+    && password === '123456'
+  ) {
+    res.json(req.body);
+  } else {
+    res.status(401);
+    res.end('UnAuthorization');
+  }
+});
+
 
 app.use(webpackDevMiddleware(complier, {
   publicPath: '/__build__/',
@@ -118,5 +140,5 @@ app.use(router);
 
 const port = process.env.PORT || 8888;
 module.exports = app.listen(port, () => {
-  console.log(`请空中转体 420° 打开这个链接 http://127.0.0.1:${port}, 或按 Ctrl + C 停止操作`);
+  console.log(`请空中转体 420° 打开这个链接 http://localhost:${port}, 或按 Ctrl + C 停止操作`);
 });

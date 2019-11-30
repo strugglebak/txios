@@ -78,6 +78,7 @@ export interface TxiosStatic extends TxiosInstance {
  * @param {TxiosTransformer | TxiosTransformer[]} transformRequest 请求配置属性
  * @param {TxiosTransformer | TxiosTransformer[]} transformResponse 响应配置属性
  * @param {CancelToken} cancelToken 取消类型
+ * @param {boolean} withCredentials xhr 对象的 withCredentials
  */
 export interface TxiosRequestConfig {
   url?: string
@@ -91,6 +92,7 @@ export interface TxiosRequestConfig {
   transformRequest?: TxiosTransformer | TxiosTransformer[]
   transformResponse?: TxiosTransformer | TxiosTransformer[]
   cancelToken?: CancelToken
+  withCredentials?: boolean
 }
 
 /**

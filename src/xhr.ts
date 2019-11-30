@@ -19,7 +19,8 @@ export default function xhr(config: TxiosRequestConfig): TxiosPromise {
       data = null,
       responseType,
       timeout,
-      cancelToken
+      cancelToken,
+      withCredentials
     } = config
 
     // 开始封装 xhr
@@ -103,6 +104,9 @@ export default function xhr(config: TxiosRequestConfig): TxiosPromise {
           // TODO
         })
     }
+
+    // 设置 withCredentials
+    if (withCredentials) request.withCredentials = true
 
     request.send(data)
   })
