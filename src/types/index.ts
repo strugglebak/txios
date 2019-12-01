@@ -79,6 +79,8 @@ export interface TxiosStatic extends TxiosInstance {
  * @param {TxiosTransformer | TxiosTransformer[]} transformResponse 响应配置属性
  * @param {CancelToken} cancelToken 取消类型
  * @param {boolean} withCredentials xhr 对象的 withCredentials
+ * @param {string} xsrfCookieName 存储 token 的 cookie 名称
+ * @param {string} xsrfHeaderName 请求 Headers 中 token 对应的 header 名称
  */
 export interface TxiosRequestConfig {
   url?: string
@@ -93,6 +95,8 @@ export interface TxiosRequestConfig {
   transformResponse?: TxiosTransformer | TxiosTransformer[]
   cancelToken?: CancelToken
   withCredentials?: boolean
+  xsrfCookieName?: string
+  xsrfHeaderName?: string
 }
 
 /**

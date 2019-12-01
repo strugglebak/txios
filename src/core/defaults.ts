@@ -22,7 +22,9 @@ const defaults: TxiosRequestConfig = {
     function(data: any): any {
       return transformResponse(data)
     }
-  ]
+  ],
+  xsrfCookieName: 'XSRF-TOKEN',
+  xsrfHeaderName: 'X-XSRF-TOKEN'
 }
 
 const methodsWithoutData = ['delete', 'get', 'head', 'options']

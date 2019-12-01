@@ -1,6 +1,8 @@
 import { TxiosRequestConfig, TxiosPromise, TxiosResponse } from './types'
 import { parseHeaders } from './helpers/headers-helper'
 import { createError } from './helpers/error-helper'
+import { isUrlSameOrigin } from './helpers/url-helper'
+import cookie from './helpers/cookie-helper'
 
 /**
  *
@@ -20,7 +22,9 @@ export default function xhr(config: TxiosRequestConfig): TxiosPromise {
       responseType,
       timeout,
       cancelToken,
-      withCredentials
+      withCredentials,
+      xsrfCookieName,
+      xsrfHeaderName
     } = config
 
     // 开始封装 xhr
@@ -107,6 +111,15 @@ export default function xhr(config: TxiosRequestConfig): TxiosPromise {
 
     // 设置 withCredentials
     if (withCredentials) request.withCredentials = true
+
+    // 设置 cookie
+    // 1. 若 withCredentials = true | 同域请求，在 headers 中添加 xsrf 相关字段
+    // 2. 判断成功,则从 cookie 中读取 xsrf 的 token
+    // 3. 若能读到，则将其添加到请求 headers 的 xsrf 相关字段中
+    if ((withCredentials || isUrlSameOrigin(url!)) && xsrfCookieName) {
+      const token = cookie.getToken(xsrfCookieName)
+      if (token) headers[xsrfHeaderName!] = token
+    }
 
     request.send(data)
   })

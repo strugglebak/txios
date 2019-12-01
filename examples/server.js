@@ -122,6 +122,16 @@ router.post('/more/post', (req, res) => {
 });
 
 
+// 每次客户端访问页面, 服务端都通过 set-cookie 往客户端种 cookie
+// 这个 cookie key 为 XSRF-TOKEN, value 为 1234abc
+// 这个 value 就是 XSRF 的 token
+app.use(express.static(__dirname, {
+  setHeaders (res) {
+    res.cookie('XSRF-TOKEN-D', '1234abc');
+  }
+}));
+
+
 app.use(webpackDevMiddleware(complier, {
   publicPath: '/__build__/',
   stats: {

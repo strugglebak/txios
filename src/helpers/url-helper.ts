@@ -1,4 +1,5 @@
 import { isDate, isNormalObject } from './util-helper'
+import { resolve } from 'dns'
 
 /**
  *
@@ -110,4 +111,33 @@ function encode(value: string): string {
     .replace(/%20/g, '+')
     .replace(/%5B/gi, '[')
     .replace(/%5D/gi, ']')
+}
+
+interface UrlOrigin {
+  protocol: string
+  host: string
+  port: string
+}
+const urlParsingNode = document.createElement('a')
+function resolveUrl(url: string): UrlOrigin {
+  urlParsingNode.setAttribute('href', url)
+  const { protocol, host, port } = urlParsingNode
+  return { protocol, host, port }
+}
+const currentOrigin = resolveUrl(window.location.href)
+/**
+ *
+ *
+ * @export
+ * @param {string} requestUrl
+ * @returns {boolean}
+ * @description 判断请求的 url 是否同源
+ */
+export function isUrlSameOrigin(requestUrl: string): boolean {
+  const parseOrigin = resolveUrl(requestUrl)
+  return (
+    parseOrigin.protocol === currentOrigin.protocol &&
+    parseOrigin.host === currentOrigin.host &&
+    parseOrigin.port === currentOrigin.port
+  )
 }
