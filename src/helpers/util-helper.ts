@@ -1,3 +1,5 @@
+import { type } from 'os'
+
 const toString = Object.prototype.toString
 
 /**
@@ -118,4 +120,16 @@ export function deepMerge(...objects: any[]): any {
   })
 
   return result
+}
+
+/**
+ *
+ *
+ * @export
+ * @param {*} value
+ * @returns {boolean}
+ * @description 判断是否是 FormData 类型的数据
+ */
+export function isFormData(value: any): boolean {
+  return typeof value !== 'undefined' && value instanceof FormData
 }

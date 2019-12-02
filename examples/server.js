@@ -4,6 +4,8 @@ const webpack = require('webpack');
 const webpackDevMiddleware = require('webpack-dev-middleware');
 const webpackHotMiddleware = require('webpack-hot-middleware');
 const webpackConfig = require('./webpack.config');
+const multipart = require('connect-multiparty');
+const path = require('path');
 
 require('./server2');
 
@@ -121,6 +123,11 @@ router.post('/more/post', (req, res) => {
   }
 });
 
+router.post('/more/upload', (req, res) => {
+  console.log(req.body, req.files);
+  res.send('upload success!');
+});
+
 
 // 每次客户端访问页面, 服务端都通过 set-cookie 往客户端种 cookie
 // 这个 cookie key 为 XSRF-TOKEN, value 为 1234abc
@@ -129,6 +136,11 @@ app.use(express.static(__dirname, {
   setHeaders (res) {
     res.cookie('XSRF-TOKEN-D', '1234abc');
   }
+}));
+
+// 设置上传文件存储路径为 /examples/upload-file 目录
+app.use(multipart({
+  uploadDir: path.resolve(__dirname, 'upload-file')
 }));
 
 

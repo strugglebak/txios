@@ -81,6 +81,8 @@ export interface TxiosStatic extends TxiosInstance {
  * @param {boolean} withCredentials xhr 对象的 withCredentials
  * @param {string} xsrfCookieName 存储 token 的 cookie 名称
  * @param {string} xsrfHeaderName 请求 Headers 中 token 对应的 header 名称
+ * @param {function} onDownloadProgress 监听下载进度
+ * @param {function} onUploadProgress 监听上传进度
  */
 export interface TxiosRequestConfig {
   url?: string
@@ -97,6 +99,8 @@ export interface TxiosRequestConfig {
   withCredentials?: boolean
   xsrfCookieName?: string
   xsrfHeaderName?: string
+  onDownloadProgress?: (e: ProgressEvent) => void
+  onUploadProgress?: (e: ProgressEvent) => void
 }
 
 /**
