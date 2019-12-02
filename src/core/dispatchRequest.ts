@@ -1,6 +1,6 @@
 import { TxiosRequestConfig, TxiosPromise, TxiosResponse } from '../types'
 import xhr from '../xhr'
-import { recreateUrl } from '../helpers/url-helper'
+import { recreateUrl, isAbsoluteUrl, mergeUrl } from '../helpers/url-helper'
 import { handleHeaders, flattenHeaders } from '../helpers/headers-helper'
 import transform from './transform'
 
@@ -39,8 +39,12 @@ function handleConfig(config: TxiosRequestConfig): void {
  * @description 将 url 跟 params 结合成新 url
  */
 function transformUrl(config: TxiosRequestConfig): string {
-  const { url, params, paramsSerializer } = config
-  return recreateUrl(url!, params, paramsSerializer)
+  const { url, params, paramsSerializer, baseUrl } = config
+  let newUrl = url
+  if (baseUrl && !isAbsoluteUrl(url!)) {
+    newUrl = mergeUrl(baseUrl, url)
+  }
+  return recreateUrl(newUrl!, params, paramsSerializer)
 }
 
 /**
@@ -71,13 +75,7 @@ function transformResponseData(res: TxiosResponse): TxiosResponse {
  *
  *
  * @param {TxiosRequestConfig} config
- * @description 对 HTTP 请求头进行处理
  */
-function transformHeaders(config: TxiosRequestConfig): void {
-  const { headers = {}, data } = config
-  return handleHeaders(headers, data)
-}
-
 function checkIfCancellationRequested(config: TxiosRequestConfig): void {
   if (config.cancelToken) config.cancelToken.throwRequested()
 }

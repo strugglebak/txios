@@ -119,34 +119,40 @@ import qs from 'qs'
 //     console.log(e.message)
 //   });
 
-txios.get('/more/get', {
-  params: new URLSearchParams('a=b&c=d')
-}).then(res => {
-  console.log(res)
-});
+// txios.get('/more/get', {
+//   params: new URLSearchParams('a=b&c=d')
+// }).then(res => {
+//   console.log(res)
+// });
 
-txios.get('/more/get', {
-  params: {
-    a: 1,
-    b: 1,
-    c: ['a', 'b', 'c']
-  }
-}).then(res => {
-  console.log(res)
-});
+// txios.get('/more/get', {
+//   params: {
+//     a: 1,
+//     b: 1,
+//     c: ['a', 'b', 'c']
+//   }
+// }).then(res => {
+//   console.log(res)
+// });
+
+// const instance = txios.create({
+//   paramsSerializer(params) {
+//     // 对 [] 转义
+//     return qs.stringify(params, { arrayFormat: 'brackets'});
+//   }
+// });
+// instance.get('/more/get', {
+//   params: {
+//     a: 1,
+//     b: 1,
+//     c: ['a', 'b', 'c']
+//   }
+// }).then(res => {
+//   console.log(res)
+// });
 
 const instance = txios.create({
-  paramsSerializer(params) {
-    // 对 [] 转义
-    return qs.stringify(params, { arrayFormat: 'brackets'});
-  }
+  baseUrl: 'https://avatars3.githubusercontent.com'
 });
-instance.get('/more/get', {
-  params: {
-    a: 1,
-    b: 1,
-    c: ['a', 'b', 'c']
-  }
-}).then(res => {
-  console.log(res)
-});
+instance.get('/u/17985856?s=460&v=4');
+instance.get('https://avatars3.githubusercontent.com/u/17985856?s=460&v=4')

@@ -152,3 +152,30 @@ export function isUrlSameOrigin(requestUrl: string): boolean {
     parseOrigin.port === currentOrigin.port
   )
 }
+
+/**
+ *
+ *
+ * @export
+ * @param {string} url
+ * @returns {boolean}
+ * @description 判断是否是绝对路径
+ */
+export function isAbsoluteUrl(url: string): boolean {
+  return /^([a-z][a-z\d\+\-\.]*:)?\/\//i.test(url)
+}
+
+/**
+ *
+ *
+ * @export
+ * @param {string} baseUrl
+ * @param {string} [relativeUrl]
+ * @returns {string}
+ * @description 合并 url，比如合并 https://github.com/api 和 /get
+ */
+export function mergeUrl(baseUrl: string, relativeUrl?: string): string {
+  return relativeUrl
+    ? baseUrl.replace(/\/+$/, '') + '/' + relativeUrl.replace(/^\/+/, '')
+    : baseUrl
+}
