@@ -85,6 +85,7 @@ export interface TxiosStatic extends TxiosInstance {
  * @param {function} onUploadProgress 监听上传进度
  * @param {TxiosBasicCredentials} auth 用户凭证
  * @param {function} validateStatus 自定义合法状态码规则
+ * @param {function} paramsSerializer 自定义参数序列化
  */
 export interface TxiosRequestConfig {
   url?: string
@@ -105,6 +106,7 @@ export interface TxiosRequestConfig {
   onUploadProgress?: (e: ProgressEvent) => void
   auth?: TxiosBasicCredentials
   validateStatus?: (status: number) => boolean
+  paramsSerializer?: (params: any) => string
 }
 
 /**

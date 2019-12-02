@@ -1,5 +1,4 @@
-import { isDate, isNormalObject } from './util-helper'
-import { resolve } from 'dns'
+import { isDate, isNormalObject, isUrlSearchParams } from './util-helper'
 
 /**
  *
@@ -41,44 +40,56 @@ import { resolve } from 'dns'
  *    url = '/base/get?foo=bar' params = bar: 'baz'
  *    最终结果是 /base/get?foo=bar&bar=baz
  */
-export function recreateUrl(url: string, params?: any) {
+export function recreateUrl(
+  url: string,
+  params?: any,
+  paramsSerializer?: (params: any) => string
+) {
   if (!params) return url
 
-  const list: string[] = []
+  let finalParams
 
-  Object.keys(params).forEach(key => {
-    let value = params[key]
-    // 空值忽略
-    if (value === null || typeof value === 'undefined') return // 这里 return 是进入下次循环
+  if (paramsSerializer) {
+    finalParams = paramsSerializer(params)
+  } else if (isUrlSearchParams(params)) {
+    // 假如是 URLSearchParams 类型的 params 需要返回 toString 后的结果
+    finalParams = params.toString()
+  } else {
+    const list: string[] = []
+    Object.keys(params).forEach(key => {
+      let value = params[key]
+      // 空值忽略
+      if (value === null || typeof value === 'undefined') return // 这里 return 是进入下次循环
 
-    let values: string[]
-    if (Array.isArray(value)) {
-      // 参数值为数组
-      key += '[]'
-      values = value
-    } else {
-      // 不是数组就直接将参数作为 values 的元素
-      values = [value]
-    }
-
-    values.forEach(val => {
-      if (isNormalObject(val)) {
-        // 参数值为对象
-        // 转换成字符串
-        val = JSON.stringify(val)
-      } else if (isDate(val)) {
-        // 参数值为 Date 类型
-        // 转换成类似 2019-04-01T05:55:39.030Z 类似这样的格式
-        val = val.toISOString()
+      let values: string[]
+      if (Array.isArray(value)) {
+        // 参数值为数组
+        key += '[]'
+        values = value
+      } else {
+        // 不是数组就直接将参数作为 values 的元素
+        values = [value]
       }
-      // 将结果保存到 list 数组里
-      // 同时要考虑到特殊字符，所以要对特殊字符进行转换
-      list.push(`${encode(key)}=${encode(val)}`)
-    })
-  })
 
-  // 处理 list 数组里面的参数
-  const finalParams = list.join('&')
+      values.forEach(val => {
+        if (isNormalObject(val)) {
+          // 参数值为对象
+          // 转换成字符串
+          val = JSON.stringify(val)
+        } else if (isDate(val)) {
+          // 参数值为 Date 类型
+          // 转换成类似 2019-04-01T05:55:39.030Z 类似这样的格式
+          val = val.toISOString()
+        }
+        // 将结果保存到 list 数组里
+        // 同时要考虑到特殊字符，所以要对特殊字符进行转换
+        list.push(`${encode(key)}=${encode(val)}`)
+      })
+    })
+    // 处理 list 数组里面的参数
+    finalParams = list.join('&')
+  }
+
   if (finalParams) {
     // 去掉 url 中的哈希标记
     const endIndex = url.indexOf('#')

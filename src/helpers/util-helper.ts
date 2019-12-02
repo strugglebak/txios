@@ -133,3 +133,15 @@ export function deepMerge(...objects: any[]): any {
 export function isFormData(value: any): boolean {
   return typeof value !== 'undefined' && value instanceof FormData
 }
+
+/**
+ *
+ *
+ * @export
+ * @param {*} value
+ * @returns {value is URLSearchParams}
+ * @description 判断是否是 URLSearchParams 类型的数据
+ */
+export function isUrlSearchParams(value: any): value is URLSearchParams {
+  return typeof value !== 'undefined' && value instanceof URLSearchParams
+}

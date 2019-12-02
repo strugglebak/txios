@@ -39,8 +39,8 @@ function handleConfig(config: TxiosRequestConfig): void {
  * @description 将 url 跟 params 结合成新 url
  */
 function transformUrl(config: TxiosRequestConfig): string {
-  const { url, params } = config
-  return recreateUrl(url!, params)
+  const { url, params, paramsSerializer } = config
+  return recreateUrl(url!, params, paramsSerializer)
 }
 
 /**

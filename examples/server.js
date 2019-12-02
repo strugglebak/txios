@@ -105,7 +105,8 @@ router.post('/cancel/post', (req, res)=> {
 });
 
 router.get('/more/get', (req, res) => {
-  res.json(req.cookies);
+  // res.json(req.cookies);
+  res.json(req.query);
 });
 router.post('/more/post', (req, res) => {
   const auth = req.headers.authorization;
