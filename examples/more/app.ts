@@ -1,5 +1,7 @@
 import txios from '../../src/index'
 import NProgress from 'nprogress'
+import { TxiosError } from '../../src/helpers/error-helper';
+import { stat } from 'fs';
 
 // document.cookie = 'a=b';
 
@@ -96,3 +98,23 @@ txios.post('/more/post', {
 }).then(res => {
   console.log(res)
 });
+
+txios.get('/more/304')
+  .then(res => {
+    console.log(res)
+  })
+  .catch((e: TxiosError) => {
+    console.log(e.message)
+  });
+
+txios.get('/more/304', {
+  validateStatus(status) {
+    return status >= 200 && status < 400
+  }
+})
+  .then(res => {
+    console.log(res)
+  })
+  .catch((e: TxiosError) => {
+    console.log(e.message)
+  });

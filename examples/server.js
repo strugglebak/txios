@@ -129,6 +129,10 @@ router.post('/more/upload', (req, res) => {
   res.send('upload success!');
 });
 
+router.get('/more/304', (req, res) => {
+  res.status(304);
+  res.end();
+});
 
 // 每次客户端访问页面, 服务端都通过 set-cookie 往客户端种 cookie
 // 这个 cookie key 为 XSRF-TOKEN, value 为 1234abc

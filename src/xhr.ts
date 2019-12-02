@@ -28,7 +28,8 @@ export default function xhr(config: TxiosRequestConfig): TxiosPromise {
       xsrfHeaderName,
       onDownloadProgress,
       onUploadProgress,
-      auth
+      auth,
+      validateStatus
     } = config
 
     // 开始封装 xhr
@@ -97,7 +98,9 @@ export default function xhr(config: TxiosRequestConfig): TxiosPromise {
     }
 
     function handleResponse(response: TxiosResponse): void {
-      response.status >= 200 && response.status < 300
+      // 若没有配置 validateStatus 或 validateStatus 返回 true
+      // 都认为合法
+      !validateStatus || validateStatus(response.status)
         ? resolve(response)
         : reject(
             createError(
@@ -112,9 +115,10 @@ export default function xhr(config: TxiosRequestConfig): TxiosPromise {
 
     function processHeaders(): void {
       // 如果用户配置了 auth 属性，则在 headers 中添加 Authorization 属性
-      if (auth)
+      if (auth) {
         headers['Authorization'] =
           'Basic ' + btoa(auth.username + ':' + auth.password)
+      }
 
       // 如果请求的数据是 FormData 类型，则应该主动函数 headers 中的 content-Type 字段
       // 让浏览器自动根据数据类型设置 Content-Type
