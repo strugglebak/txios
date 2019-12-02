@@ -1,7 +1,7 @@
 import { TxiosRequestConfig, TxiosPromise, TxiosResponse } from '../types'
 import xhr from '../xhr'
 import { recreateUrl, isAbsoluteUrl, mergeUrl } from '../helpers/url-helper'
-import { handleHeaders, flattenHeaders } from '../helpers/headers-helper'
+import { flattenHeaders } from '../helpers/headers-helper'
 import transform from './transform'
 
 /**
@@ -38,7 +38,7 @@ function handleConfig(config: TxiosRequestConfig): void {
  * @returns {string}
  * @description 将 url 跟 params 结合成新 url
  */
-function transformUrl(config: TxiosRequestConfig): string {
+export function transformUrl(config: TxiosRequestConfig): string {
   const { url, params, paramsSerializer, baseUrl } = config
   let newUrl = url
   if (baseUrl && !isAbsoluteUrl(url!)) {

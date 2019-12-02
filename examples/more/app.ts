@@ -151,8 +151,41 @@ import qs from 'qs'
 //   console.log(res)
 // });
 
-const instance = txios.create({
-  baseUrl: 'https://avatars3.githubusercontent.com'
-});
-instance.get('/u/17985856?s=460&v=4');
-instance.get('https://avatars3.githubusercontent.com/u/17985856?s=460&v=4')
+// const instance = txios.create({
+//   baseUrl: 'https://avatars3.githubusercontent.com'
+// });
+// instance.get('/u/17985856?s=460&v=4');
+// instance.get('https://avatars3.githubusercontent.com/u/17985856?s=460&v=4')
+
+function getA() {
+  return txios.get('/more/A');
+}
+function getB() {
+  return txios.get('/more/B');
+}
+
+// tslint:disable-next-line: no-floating-promises
+txios.all([getA(), getB()])
+  .then(txios.spread((resA, resB) => {
+    console.log('spread A', resA.data)
+    console.log('spread B', resB.data)
+  }));
+
+// tslint:disable-next-line: no-floating-promises
+txios.all([getA(), getB()])
+  .then(([resA, resB]) => {
+    console.log('[] A', resA.data)
+    console.log('[] B', resB.data)
+  });
+
+const fakeConfig = {
+  baseURL: 'https://www.baidu.com/',
+  url: '/user/12345',
+  params: {
+    idClient: 1,
+    idTest: 2,
+    testString: 'thisIsATest'
+  }
+}
+
+console.log(txios.getUri(fakeConfig))

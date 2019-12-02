@@ -29,6 +29,8 @@ export interface Txios {
   ): TxiosPromise<T>
 
   request<T = any>(config: TxiosRequestConfig): TxiosPromise<T>
+
+  getUri(config?: TxiosRequestConfig): string
 }
 
 /**
@@ -62,6 +64,20 @@ export interface TxiosStatic extends TxiosInstance {
   CancelToken: CancelTokenStatic
   Cancel: CancelStatic
   isCancel: (value: any) => boolean
+
+  all<T>(promises: Array<T | Promise<T>>): Promise<T[]>
+  spread<T, U>(callback: (...args: T[]) => U): (arr: T[]) => U
+  Txios: TxiosClassStatic
+}
+
+/**
+ *
+ *
+ * @export
+ * @interface TxiosClassStatic
+ */
+export interface TxiosClassStatic {
+  new (config: TxiosRequestConfig): Txios
 }
 
 /**

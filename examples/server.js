@@ -135,6 +135,13 @@ router.get('/more/304', (req, res) => {
   res.end();
 });
 
+router.get('/more/A', (req, res) => {
+  res.json(req.query);
+});
+router.get('/more/B', (req, res) => {
+  res.json(req.query);
+});
+
 // 每次客户端访问页面, 服务端都通过 set-cookie 往客户端种 cookie
 // 这个 cookie key 为 XSRF-TOKEN, value 为 1234abc
 // 这个 value 就是 XSRF 的 token

@@ -7,7 +7,7 @@ import {
   ResolvedFn
 } from '../types'
 
-import dispatchRequest from './dispatchRequest'
+import dispatchRequest, { transformUrl } from './dispatchRequest'
 import InterceptorManager from './interceptor'
 import mergeConfig from './mergeConfig'
 
@@ -63,6 +63,11 @@ export default class TxiosCore {
   }
   patch(url: string, data?: any, config?: TxiosRequestConfig): TxiosPromise {
     return this._requestMethodWithData('patch', url, data, config)
+  }
+
+  getUri(config?: TxiosRequestConfig): string {
+    config = mergeConfig(this.defaults, config)
+    return transformUrl(config)
   }
 
   request(url: any, config?: any): TxiosPromise {

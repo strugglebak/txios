@@ -34,4 +34,14 @@ txios.CancelToken = CancelToken
 txios.Cancel = Cancel
 txios.isCancel = isCancel
 
+txios.all = function all(promises) {
+  return Promise.all(promises)
+}
+txios.spread = function spread(callback) {
+  return function wrap(arr) {
+    return callback.apply(null, arr)
+  }
+}
+txios.Txios = TxiosCore
+
 export default txios
