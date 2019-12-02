@@ -6,6 +6,7 @@ const webpackHotMiddleware = require('webpack-hot-middleware');
 const webpackConfig = require('./webpack.config');
 const multipart = require('connect-multiparty');
 const path = require('path');
+const atob = require('atob');
 
 require('./server2');
 
@@ -113,7 +114,7 @@ router.post('/more/post', (req, res) => {
   const [username, password] = atob(credentials).split(':');
   if (
     type === 'Basic'
-    && username === 'Yee'
+    && username === 'strugglebak'
     && password === '123456'
   ) {
     res.json(req.body);

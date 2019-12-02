@@ -83,6 +83,7 @@ export interface TxiosStatic extends TxiosInstance {
  * @param {string} xsrfHeaderName 请求 Headers 中 token 对应的 header 名称
  * @param {function} onDownloadProgress 监听下载进度
  * @param {function} onUploadProgress 监听上传进度
+ * @param {TxiosBasicCredentials} auth 用户凭证
  */
 export interface TxiosRequestConfig {
   url?: string
@@ -101,6 +102,19 @@ export interface TxiosRequestConfig {
   xsrfHeaderName?: string
   onDownloadProgress?: (e: ProgressEvent) => void
   onUploadProgress?: (e: ProgressEvent) => void
+  auth?: TxiosBasicCredentials
+}
+
+/**
+ *
+ *
+ * @export
+ * @interface TxiosBasicCredentials
+ * @description 用于验证用户代理身份接口
+ */
+export interface TxiosBasicCredentials {
+  username: string
+  password: string
 }
 
 /**

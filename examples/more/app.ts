@@ -85,3 +85,14 @@ function loadProgressBar(): void {
   setupUpdateProgress();
   setupStopProgress();
 }
+
+txios.post('/more/post', {
+  a: 1
+}, {
+  auth: {
+    username: 'strugglebak',
+    password: '123456'
+  }
+}).then(res => {
+  console.log(res)
+});

@@ -27,7 +27,8 @@ export default function xhr(config: TxiosRequestConfig): TxiosPromise {
       xsrfCookieName,
       xsrfHeaderName,
       onDownloadProgress,
-      onUploadProgress
+      onUploadProgress,
+      auth
     } = config
 
     // 开始封装 xhr
@@ -110,6 +111,11 @@ export default function xhr(config: TxiosRequestConfig): TxiosPromise {
     }
 
     function processHeaders(): void {
+      // 如果用户配置了 auth 属性，则在 headers 中添加 Authorization 属性
+      if (auth)
+        headers['Authorization'] =
+          'Basic ' + btoa(auth.username + ':' + auth.password)
+
       // 如果请求的数据是 FormData 类型，则应该主动函数 headers 中的 content-Type 字段
       // 让浏览器自动根据数据类型设置 Content-Type
       if (isFormData(data)) delete headers['Content-Type']

@@ -10,9 +10,9 @@ policyKeysFromCustomValue.forEach(key => {
   policies[key] = onlyCustomPolicy
 })
 
-// 对于 headers 中的字段
+// 对于 headers/auth 中的字段
 // 合并复杂对象(深拷贝)
-const policyKeysDeepMerge = ['headers']
+const policyKeysDeepMerge = ['headers', 'auth']
 policyKeysDeepMerge.forEach(key => {
   policies[key] = deepMergePolicy
 })
