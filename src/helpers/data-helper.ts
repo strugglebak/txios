@@ -33,7 +33,7 @@ export function transformResponse(data: any): any {
       data = data && JSON.parse(data)
     } catch (error) {
       // TODO
-      console.log(error)
+      // console.log(error)
     }
   }
   return data
