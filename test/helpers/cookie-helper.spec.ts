@@ -1,6 +1,6 @@
 import cookie from '../../src/helpers/cookie-helper'
 
-describe('helpers: cookie', () => {
+describe('helpers: cookie-helper', () => {
   test('should get token from cookies', () => {
     document.cookie = 'foo=bar'
     expect(cookie.getToken('foo')).toBe('bar')
