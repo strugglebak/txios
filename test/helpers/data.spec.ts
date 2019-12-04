@@ -2,7 +2,6 @@ import {
   transformRequest,
   transformResponse
 } from '../../src/helpers/data-helper'
-import { url } from 'inspector'
 
 describe('helpers: data-helper', () => {
   describe('transformRequest', () => {
@@ -20,7 +19,7 @@ describe('helpers: data-helper', () => {
   describe('transformResponse', () => {
     test('should transform response data to Object if data is a JSON string', () => {
       const a = '{"a":1}'
-      expect(transformResponse(a)).toEqual({ a: 2 })
+      expect(transformResponse(a)).toEqual({ a: 1 })
     })
     test('should do nothing if data is a string but no a JSON string', () => {
       const a = '{a:1}'
