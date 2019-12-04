@@ -1,5 +1,3 @@
-import { type } from 'os'
-
 const toString = Object.prototype.toString
 
 /**

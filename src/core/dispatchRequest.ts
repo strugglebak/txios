@@ -1,5 +1,5 @@
 import { TxiosRequestConfig, TxiosPromise, TxiosResponse } from '../types'
-import xhr from '../xhr'
+import xhr from './xhr'
 import { recreateUrl, isAbsoluteUrl, mergeUrl } from '../helpers/url-helper'
 import { flattenHeaders } from '../helpers/headers-helper'
 import transform from './transform'

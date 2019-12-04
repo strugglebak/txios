@@ -1,9 +1,9 @@
-import { TxiosRequestConfig, TxiosPromise, TxiosResponse } from './types'
-import { parseHeaders } from './helpers/headers-helper'
-import { createError } from './helpers/error-helper'
-import { isUrlSameOrigin } from './helpers/url-helper'
-import cookie from './helpers/cookie-helper'
-import { isFormData } from './helpers/util-helper'
+import { TxiosRequestConfig, TxiosPromise, TxiosResponse } from '../types'
+import { parseHeaders } from '../helpers/headers-helper'
+import { createError } from '../helpers/error-helper'
+import { isUrlSameOrigin } from '../helpers/url-helper'
+import cookie from '../helpers/cookie-helper'
+import { isFormData } from '../helpers/util-helper'
 
 /**
  *
