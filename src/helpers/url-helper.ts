@@ -72,16 +72,15 @@ export function recreateUrl(
       }
 
       values.forEach(val => {
-        if (isNormalObject(val)) {
-          // 参数值为对象
-          // 转换成字符串
-          val = JSON.stringify(val)
-        } else if (isDate(val)) {
+        if (isDate(val)) {
           // 参数值为 Date 类型
           // 转换成类似 2019-04-01T05:55:39.030Z 类似这样的格式
           val = val.toISOString()
-        }
-        // 将结果保存到 list 数组里
+        } else if (isNormalObject(val)) {
+          // 参数值为对象
+          // 转换成字符串
+          val = JSON.stringify(val)
+        } // 将结果保存到 list 数组里
         // 同时要考虑到特殊字符，所以要对特殊字符进行转换
         list.push(`${encode(key)}=${encode(val)}`)
       })
