@@ -14,9 +14,18 @@ import transform from './transform'
 export function dispatchRequest(config: TxiosRequestConfig): TxiosPromise {
   checkIfCancellationRequested(config) // 检查 cancelToken 是否被使用过
   handleConfig(config)
-  return xhr(config).then(res => {
-    return transformResponseData(res)
-  })
+  return xhr(config).then(
+    res => {
+      return transformResponseData(res)
+    },
+    e => {
+      // 请求失败需要将响应数据转成 JSON 格式
+      if (e && e.response) {
+        e.response = transformResponseData(e.response)
+      }
+      return Promise.reject(e)
+    }
+  )
 }
 
 /**
