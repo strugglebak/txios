@@ -15,6 +15,7 @@ export class TxiosError extends Error {
   response?: TxiosResponse
   isTxiosError: boolean
 
+  /* istanbul ignore next */
   constructor(
     message: string,
     config: TxiosRequestConfig,
