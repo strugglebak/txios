@@ -30,7 +30,6 @@ txios.create = function create(config) {
   return createInstance(mergeConfig(defaults, config))
 }
 
-txios.defaults = defaults
 txios.CancelToken = CancelToken
 txios.Cancel = Cancel
 txios.isCancel = isCancel
