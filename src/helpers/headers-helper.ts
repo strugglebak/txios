@@ -68,12 +68,14 @@ export function parseHeaders(headers: string): any {
   if (!headers) return parser
 
   headers.split('\r\n').forEach(line => {
-    let [key, value] = line.split(':')
+    // 一行里面有多个 : 号的情况
+    // 如 Date: Tue, 21 May 2019 09:23:44 GMT
+    let [key, ...value] = line.split(':')
     // key 需要去掉空格以及转变成小写
     key = key.trim().toLowerCase()
     if (!key) return
-    if (value) value = value.trim()
-    parser[key] = value
+    let val = value.join(':').trim()
+    parser[key] = val
   })
 
   return parser
