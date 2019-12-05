@@ -229,4 +229,38 @@ describe('requests', () => {
       expect(req.requestHeaders['Content-Type']).toBe('application/json')
     })
   })
+
+  // 测试 responseType
+  test('should support array buffer response', done => {
+    let response: TxiosResponse
+
+    function str2ab(str: string) {
+      const buff = new ArrayBuffer(str.length * 2)
+      const view = new Uint16Array(buff)
+      for (let i = 0; i < str.length; i++) {
+        view[i] = str.charCodeAt(i)
+      }
+      return view
+    }
+
+    // tslint:disable-next-line: no-floating-promises
+    txios('/foo', {
+      responseType: 'arraybuffer'
+    }).then(res => {
+      response = res
+    })
+
+    return getAjaxRequest().then(req => {
+      req.respondWith({
+        status: 200,
+        // @ts-ignore
+        response: str2ab('Hello world')
+      })
+
+      setTimeout(() => {
+        expect(response.data.byteLength).toBe(22)
+        done()
+      }, 100)
+    })
+  })
 })

@@ -17,7 +17,7 @@ export default function xhr(config: TxiosRequestConfig): TxiosPromise {
   return new Promise((resolve, reject) => {
     const {
       url,
-      method = 'get',
+      method,
       headers = {},
       data = null,
       responseType,
@@ -34,7 +34,7 @@ export default function xhr(config: TxiosRequestConfig): TxiosPromise {
 
     // 开始封装 xhr
     const request = new XMLHttpRequest()
-    request.open(method.toUpperCase(), url!, true)
+    request.open(method!.toUpperCase(), url!, true)
 
     configureRequest()
     bindEvents()
