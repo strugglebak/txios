@@ -18,7 +18,7 @@ export default function xhr(config: TxiosRequestConfig): TxiosPromise {
     const {
       url,
       method = 'get',
-      headers,
+      headers = {},
       data = null,
       responseType,
       timeout,
