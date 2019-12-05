@@ -59,6 +59,7 @@ export interface TxiosInstance extends Txios {
  * 所以这里提供一个 create 的接口来 产生一个新的 txios 实例将这些配置隔离开
  */
 export interface TxiosStatic extends TxiosInstance {
+  defaults: TxiosRequestConfig
   create(config?: TxiosRequestConfig): TxiosInstance
 
   CancelToken: CancelTokenStatic
