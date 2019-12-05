@@ -81,6 +81,8 @@ export default class TxiosCore {
 
     // 合并配置
     config = mergeConfig(this.defaults, config)
+    // 为 flattenHeaders 能正确处理这些字符串，需要将 method 转成小写
+    config.method = config.method.toLowerCase()
 
     /**
      * 构建如下的 Promise 链
