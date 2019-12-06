@@ -20,7 +20,7 @@
   },
   "scripts": {
     "prepub": "npm run test:prod && npm run build",
-    "pub": "sh deploy.sh",
+    "pub": "bash ./deploy.sh",
     "dev": "node examples/server.js",
     "lint": "tslint  --project tsconfig.json -t codeFrame 'src/**/*.ts' 'test/**/*.ts'",
     "prebuild": "rimraf dist",
