@@ -3,8 +3,6 @@ import {
   handleHeaders,
   flattenHeaders
 } from '../../src/helpers/headers-helper'
-import { peachpuff } from 'color-name'
-import { head } from 'shelljs'
 
 describe('helpers: headers-helper', () => {
   describe('parseHeaders', () => {
