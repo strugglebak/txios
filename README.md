@@ -3,7 +3,7 @@
 ![Travis (.org)](https://img.shields.io/travis/strugglebak/txios?style=flat-square)
 ![npm bundle size](https://img.shields.io/bundlephobia/min/txios?style=flat-square)
 
-一个使用 TypeScript 封装的 axios 库
+一个使用 TypeScript 封装的 http 库
 
 # 功能支持
  - 支持使用 XMLHttpRequest 对象通信
