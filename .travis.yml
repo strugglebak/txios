@@ -1,19 +1,31 @@
+deploy:
+  provider: pages
+  skip_cleanup: true
+  github_token: $GITHUB_TOKEN
+  keep_history: true
+  on:
+    branch: master
 language: node_js
 cache:
   directories:
-    - ~/.npm
+  - "~/.npm"
 notifications:
   email: false
 node_js:
-  - '10'
-  - '11'
-  - '8'
+- '10'
+- '11'
+- '8'
 script:
-  - npm run test:prod && npm run build
+- npm run test:prod && npm run build
 after_success:
-  - npm run travis-deploy-once "npm run report-coverage"
-  - if [ "$TRAVIS_BRANCH" = "master" -a "$TRAVIS_PULL_REQUEST" = "false" ]; then npm run travis-deploy-once "npm run deploy-docs"; fi
-  - if [ "$TRAVIS_BRANCH" = "master" -a "$TRAVIS_PULL_REQUEST" = "false" ]; then npm run travis-deploy-once "npm run sr"; fi
+- npm run travis-deploy-once "npm run report-coverage"
+- if [ "$TRAVIS_BRANCH" = "master" -a "$TRAVIS_PULL_REQUEST" = "false" ]; then npm
+  run travis-deploy-once "npm run deploy-docs"; fi
+- if [ "$TRAVIS_BRANCH" = "master" -a "$TRAVIS_PULL_REQUEST" = "false" ]; then npm
+  run travis-deploy-once "npm run sr"; fi
 branches:
   except:
-    - /^v\d+\.\d+\.\d+$/
+  - "/^v\\d+\\.\\d+\\.\\d+$/"
+env:
+  global:
+    secure: WPuJZvLNAyAfwu2gM89Y3t520/rnO5GK25Bf1WViJff5q893ZJ9e6dolFNw3MlTAhFPfC0JtJ4a2ymrIo+ExAb1KaqMB2wC8cNyJUWjJOp8TejyYdDb+CRBuo+GLAbBC0K8cFzadkQYcJH7cfczJiqiX1hjIkygFZgEdx94z9SMH9yded+WEHe7SOS7+WN3Eua3uQhPndLeqryr4BU8VErL2nRvPn7E8A88zbWfKipqpaDayf5iZWptjmIAo/iUaHr8ewlXdkxalyfJle0e+CSXzVhSrRRG0fTOw+qGAxvaQy2Bnvumi2RVRxhl/KU250iqSgUUN8Xox/L2rM7exjBdOa8FpfNf9knSG1seXu9SIWOp305DuBGjF0AUBpEkKV/gj0+5beqPSBo/H+54QuiHx74DjUqqy6axct0gZnRc6CMcY+xstmCe+Gws0ohMKwAjbklSyVwiWNmtKgC+qlI8VHrGLYjgLt1sbo8wP0FM31EY3tfvN39WLASBuSTLRmDK0/lWT5jZZp5GfYy9E4KXK4Yia8TQQEWpuSyZLU6++iBBi4jtCyRWl4VqbzvJJ/hOtMGxj6PEWi67AVpDjv/3ixdzIjMBVxjfUerraf2zgBPAcAxW0wGx1AbuIsJEuz7ho58i79CZYJxpPLCQ0GEs05V/Rbrac7GzG1nANgzU=
