@@ -1,6 +1,7 @@
 # txios
 ![npm](https://img.shields.io/npm/v/txios?style=flat-square)
 ![Travis (.org)](https://img.shields.io/travis/strugglebak/txios?style=flat-square)
+![npm bundle size](https://img.shields.io/bundlephobia/min/txios?style=flat-square)
 
 一个使用 TypeScript 封装的 axios 库
 
