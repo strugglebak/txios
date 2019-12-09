@@ -8,9 +8,9 @@
 
 一个基于 Promise 的 HTTP 库，使用 TypeScript 封装，可在常规浏览器上使用
 
-> 注意: txios 是基于 Rollup 进行编译打包，但是在项目构建阶段依然采用了 Webpack 4.x，其中的调试命令请参考 package.json 中的 script 选项
+> 注意: `txios` 是基于 **`Rollup`** 进行编译打包，但是在项目构建阶段依然采用了 **`Webpack 4.x`**，其中的调试命令请参考 `package.json` 中的 `script` 选项
 
-> 项目在线 demo 为 [在 Vue 中引入 txios](https://jsbin.com/lutuqofovu/edit?html,js,output)
+> 项目在线 demo 为 --> [在 Vue 中引入 txios](https://jsbin.com/lutuqofovu/edit?html,js,output)
 
 ## 功能支持
 
