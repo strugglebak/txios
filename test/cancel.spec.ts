@@ -1,6 +1,5 @@
 import txios from '../src/index'
 import { getAjaxRequest } from './helper'
-import { doesNotReject } from 'assert'
 
 describe('cancel', () => {
   const CancelToken = txios.CancelToken
