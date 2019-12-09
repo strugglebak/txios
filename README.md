@@ -1,4 +1,4 @@
-# txios
+## txios
 
 ![npm](https://img.shields.io/npm/v/txios?style=flat-square)
 ![Travis (.org)](https://img.shields.io/travis/strugglebak/txios?style=flat-square)
@@ -8,7 +8,7 @@
 
 一个基于 Promise 的 HTTP 库，使用 TypeScript 封装，可在常规浏览器上使用
 
-# 功能支持
+## 功能支持
 
  - 支持使用 XMLHttpRequest 对象通信
  - 支持 Promise API
@@ -17,13 +17,13 @@
  - 支持自动转换 JSON 数据
  - 客户端支持 XSRF 防御
 
-# 浏览器支持
+## 浏览器支持
 
 ![Chrome](https://raw.github.com/alrra/browser-logos/master/src/chrome/chrome_48x48.png) | ![Firefox](https://raw.github.com/alrra/browser-logos/master/src/firefox/firefox_48x48.png) | ![Safari](https://raw.github.com/alrra/browser-logos/master/src/safari/safari_48x48.png)
 --- | --- | --- |
 Latest ✔ | Latest ✔ | Latest ✔ |
 
-# 安装
+## 安装
 
 使用 npm
 
@@ -43,9 +43,9 @@ yarn add txios
 <script src="https://cdn.jsdelivr.net/npm/txios@0.1.0/dist/txios.umd.min.js"></script>
 ```
 
-# 例子
+## 例子
 
-## 注意：ES6 模块引入
+### 注意：ES6 模块引入
 
 为了得到 TypeScript 的类型，你可以做如下的写法
 
@@ -143,11 +143,11 @@ txios.all([getFoo1(), getFoo2()])
   })
 ```
 
-# txios 相关 API
+## txios 相关 API
 
 通过传配置的方式发送请求
 
-## txios(config)
+### txios(config)
 
 ```js
 // 发送 POST 请求
@@ -161,13 +161,14 @@ txios({
 });
 ```
 
-## txios(url[, config])
+### txios(url[, config])
+
 ```js
 // 发送 GET 请求(默认不传参就是 GET 请求)
 txios('/foo/strugglebak')
 ```
 
-# 请求方法 API
+## 请求方法 API
 
 所有请求方法都有对应的 HTTP 请求名
 
@@ -187,13 +188,13 @@ txios.patch(url[, data[, config]])
 txios.request(url[, config])
 ```
 
-## 注意
+### 注意
 
 在使用这种 HTTP 别名的方式来发送请求时(不包括 `request`)，`config` 属性不需要加 `url`、`method`、`data` 属性
 
 在使用 `request` 时，不需要加 `url` 属性
 
-# 并发请求
+## 并发请求
 
 有两个 API 可以帮助你实现并发请求
 
@@ -202,11 +203,11 @@ txios.all(iterable)
 txios.spread(callback)
 ```
 
-# 创建实例
+## 创建实例
 
 你可以使用 **自定义配置** 去创建一个 txios 实例
 
-## txios.create([config])
+### txios.create([config])
 
 ```js
 const instance = txios.create({
@@ -218,7 +219,7 @@ const instance = txios.create({
 })
 ```
 
-# 实例方法
+## 实例方法
 
 同样的，instance 实例都具有 txios 里面的方法, 同时传参数的方式都是一样的
 
@@ -234,7 +235,7 @@ txios#patch(url[, data[, config]])
 txios#getUri([config])
 ```
 
-# 请求配置
+## 请求配置
 
 在如下的请求配置项中，只有 `url` 属性是 **必填** 的，其他的配置项都是可选的
 
@@ -305,7 +306,8 @@ txios#getUri([config])
 }
 ```
 
-# 响应数据的格式
+## 响应数据的格式
+
 ```js
 {
   // `data` 就是服务端返回的数据
@@ -338,11 +340,11 @@ txios.get('/foo/strugglebak')
 
 当然，若你使用 `catch` 或者在 `then` 中传 `reject` 回调, `response` 将会在 `error` 中访问到，相关章节请访问 [错误处理](#错误处理)
 
-# 默认配置
+## 默认配置
 
 你可以给每个请求搞个默认的配置
 
-## 全局默认配置
+### 全局默认配置
 
 ```js
 txios.defaults.headers.common['xxx'] = XXX
@@ -350,7 +352,7 @@ txios.defaults.headers.post['Content-Type'] = 'application/json'
 txios.defaults.baseUrl = 'https://github.com'
 ```
 
-## 自定义实例配置
+### 自定义实例配置
 
 ```js
 // 创建实例的时候就可以设置默认配置了
@@ -362,7 +364,7 @@ const instance = axios.create({
 instance.defaults.headers.common['XXX'] = XXX
 ```
 
-## 配置的优先级
+### 配置的优先级
 
 后面配置的将会比前面配置的优先级高，因为默认配置项在合并时，会遵从 `defalut.ts` -> `instance` 里的配置 -> `config` 参数里面的配置这样的顺序，以下是一个例子
 
@@ -377,7 +379,7 @@ instance.get('/foo', {
 })
 ```
 
-# 拦截器
+## 拦截器
 
 在 `then` 或者 `catch` 之前对请求或者响应进行拦截
 
@@ -447,7 +449,7 @@ txios.interceptors.response.use(res => {
 })
 ```
 
-# 错误处理
+## 错误处理
 
 ```js
 txios.get('/foo/strugglebak')
@@ -473,4 +475,4 @@ txios('/foo/strugglebak', {
 })
 ```
 
-# 取消请求
+## 取消请求
