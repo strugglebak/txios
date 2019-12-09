@@ -12,6 +12,8 @@
 
 > 项目在线 demo 为 --> [在 Vue 中引入 txios](https://jsbin.com/lutuqofovu/edit?html,js,output)
 
+> :warning: 目前项目暂不支持 Node.js，未来将会继续推出 txios 的 Node 版本
+
 ## 功能支持
 
  - 支持使用 XMLHttpRequest 对象通信
