@@ -1,8 +1,8 @@
 {
   "name": "txios",
-  "version": "0.2.0",
-  "description": "",
-  "keywords": [],
+  "version": "0.2.1",
+  "description": "一个基于 TypeScript 实现的 HTTP 库",
+  "keywords": ["typescript-http", "promise", "typescript"],
   "main": "dist/txios.umd.js",
   "module": "dist/txios.es5.js",
   "typings": "dist/types/index.d.ts",
