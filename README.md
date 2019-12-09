@@ -414,7 +414,7 @@ const interceptorId =  txios.interceptors.response.use(res => {
   // 在 `then`、 `catch` 之前做处理
   return res
 })
-txios.interceptors.response.eject(interceptorId
+txios.interceptors.response.eject(interceptorId)
 ```
 
 也可以同时添加多个拦截器
@@ -476,3 +476,76 @@ txios('/foo/strugglebak', {
 ```
 
 ## 取消请求
+
+你可以通过一个 `cancel token` 来取消请求
+
+通过使用 `CancelToken.source` 这个工厂函数，你可以创建一个 `cancel token`
+
+```js
+const CancelToken = txios.CancelToken
+const source = CancelToken.source()
+
+// 该请求没有取消
+txios.get('/cancel/get', {
+  cancelToken: source.token
+}).catch(e => {
+  if (txios.isCancel(e)) console.log('Request canceled', e.message)
+})
+
+// 该请求通过 source.cancel 方式取消
+setTimeout(() => {
+  source.cancel('Operation canceled by the user.')
+
+  txios.post('/cancel/post', { a: 1 }, { cancelToken: source.token })
+    .catch(e => {
+      if (txios.isCancel(e)) console.log(e.message)
+    })
+}, 100)
+```
+
+其中 `isCancel` 是判断这个错误参数 `e` 是不是一次取消请求导致的错误
+
+你还可以通过在 `CancelToken` 构造函数中传一个执行函数的形式来创建一个 `cancel token`
+
+```js
+// 该请求通过 cancel() 方式取消
+let cancel: Canceler
+txios.get('/cancel/get', {
+  cancelToken: new CancelToken(c => { cancel = c })
+}).catch(e => {
+  if (txios.isCancel(e)) console.log('Request canceled')
+})
+setTimeout(() => { cancel() }, 200)
+```
+
+## 建议
+### 使用 application/x-www-form-urlencoded 格式
+
+默认情况下，txios 会将 JS 对象转换成 `JSON`, 所以如果你想要以 `application/x-www-form-urlencoded` 的形式发送数据，最好这样做
+
+#### 浏览器端
+
+你可以使用 `URLSearchParams` 这个 API
+
+```js
+const params = new URLSearchParams()
+params.append('param1', 'value1')
+params.append('param2', 'value2')
+txios.post('/foo', params)
+```
+
+> 注意 `URLSearchParams` 这个 API 并不是被所有浏览器支持的，请酌情使用哈~，相关兼容性请去看 [caniuse](https://caniuse.com/#search=URLSearchParams)
+
+或者你可以使用 `qs` 这个库
+
+```js
+import qs from 'qs'
+txios.post('/foo', qs.stringify({ name: 'strugglebak' }))
+```
+
+## Promises
+
+txios 依赖于原生 ES6 Promise 实现, 如果贵环境还不[支持](https://caniuse.com/#search=promises) ES6 语法，你可以试试 [es6-promise](https://github.com/stefanpenner/es6-promise)
+
+## License
+[MIT](./LICENSE)
