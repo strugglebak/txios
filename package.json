@@ -2,7 +2,11 @@
   "name": "txios",
   "version": "0.2.4",
   "description": "一个基于 TypeScript 实现的 HTTP 库",
-  "keywords": ["typescript-http", "promise", "typescript"],
+  "keywords": [
+    "typescript-http",
+    "promise",
+    "typescript"
+  ],
   "main": "dist/txios.umd.js",
   "module": "dist/txios.es5.js",
   "typings": "dist/types/index.d.ts",
@@ -35,7 +39,9 @@
     "sr": "semantic-release",
     "srp": "ts-node tools/semantic-release-prepare",
     "precommit": "lint-staged",
-    "travis-deploy-once": "travis-deploy-once --pro"
+    "travis-deploy-once": "travis-deploy-once --pro",
+    "prepush": "npm run test:prod && npm run build",
+    "commitmsg": "commitlint -E HUSKY_GIT_PARAMS"
   },
   "lint-staged": {
     "{src,test}/**/*.ts": [
