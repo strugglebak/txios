@@ -8,6 +8,8 @@
 
 一个基于 Promise 的 HTTP 库，使用 TypeScript 封装，可在常规浏览器上使用
 
+> [📢相关博客链接点击这里](https://strugglebak.github.io/2020/03/14/txios-%E5%9F%BA%E4%BA%8ETypeScript%E7%9A%84http%E5%BA%93%E7%9A%84%E5%AE%9E%E8%B7%B5%E6%80%BB%E7%BB%93/)
+
 > 注意: `txios` 是基于 **`Rollup`** 进行编译打包，但是在项目构建阶段依然采用了 **`Webpack 4.x`**，其中的调试命令请参考 `package.json` 中的 `script` 选项
 
 > 项目在线 demo 为 --> [在 Vue 中引入 txios](https://jsbin.com/pijokizexe/edit?html,js,output)
