@@ -8,7 +8,7 @@ import { isNormalObject } from './util-helper'
  * @returns {*}
  * @description
  * 用于 request 中
- * 如果是普通对象，则转换成 JSON 对象
+ * 如果是普通对象，则转换成 JSON 字符串
  * 如果不是普通对象，则直接 return 不做处理
  */
 export function transformRequest(data: any): any {
