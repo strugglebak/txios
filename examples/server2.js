@@ -24,7 +24,7 @@ router.post('/more/server2', (req, res) => {
 });
 
 app.use(bodyParser.json());
-app.use(bodyParser.urlencoded({ extend: true }));
+app.use(bodyParser.urlencoded({ extended: true }));
 app.use(cookieParser());
 
 app.use(router);
