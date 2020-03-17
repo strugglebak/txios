@@ -6,6 +6,11 @@
 ![npm bundle size](https://img.shields.io/bundlephobia/min/txios?style=flat-square)
 [![](https://data.jsdelivr.com/v1/package/npm/txios/badge)](https://www.jsdelivr.com/package/npm/txios)
 
+
+<div class="watermelon-clock-logo" style="text-align: center;">
+  <img src="./README_IMG/txios-logo.png" width="200" />
+</div>
+
 一个基于 Promise 的 HTTP 库，使用 TypeScript 封装，可在常规浏览器上使用
 
 > [📢相关博客链接点击这里](https://strugglebak.github.io/2020/03/14/txios-%E5%9F%BA%E4%BA%8ETypeScript%E7%9A%84http%E5%BA%93%E7%9A%84%E5%AE%9E%E8%B7%B5%E6%80%BB%E7%BB%93/)
